@@ -1,0 +1,18 @@
+version: '3.1'
+
+services:
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - 3307:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_DATABASE: cfit-xb-api
+
+  wait-for-db:
+      image: jwilder/dockerize
+      command: ["-wait", "tcp://db:3306", "-timeout", "120s"]
+      depends_on:
+        - db

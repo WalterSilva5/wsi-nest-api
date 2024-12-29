@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "NestJS: Start Server (Port 5000)",
+        "type": "node",
+        "request": "launch",
+        "skipFiles": ["<node_internals>/**"],
+        "runtimeExecutable": "npm",
+        "runtimeArgs": [
+          "run",
+          "start:debug"
+        ],
+        "env": {
+          "NODE_ENV": "development",
+          "PORT": "5000"
+        },
+        "sourceMaps": true,
+        "outFiles": [
+          "${workspaceFolder}/src/**/*.ts"
+        ],
+        "stopOnEntry": true
+      }
+    ]
+  }
+  
