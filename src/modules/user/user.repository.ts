@@ -11,7 +11,7 @@ import { Paginator } from 'src/utils/paginator';
 export class UserRepository {
   constructor(private prisma: PrismaService) {}
 
-  async getMe(idUser: number): Promise<User> {
+  public async getMe(idUser: number): Promise<User> {
     return await this.prisma.user.findFirst({
       where: {
         id: idUser
@@ -19,7 +19,7 @@ export class UserRepository {
     });
   }
 
-  async createUser(dto: RegisterDto): Promise<User> {
+  public async createUser(dto: RegisterDto): Promise<User> {
     return await this.prisma.user.create({
       data: {
         firstName: dto.firstName,
@@ -30,7 +30,7 @@ export class UserRepository {
     });
   }
 
-  async findById(id: number): Promise<User> {
+  public async findById(id: number): Promise<User> {
     return await this.prisma.user.findFirst({
       where: {
         id
@@ -38,7 +38,7 @@ export class UserRepository {
     });
   }
 
-  async findByEmail(email: string): Promise<User> {
+  public async findByEmail(email: string): Promise<User> {
     return await this.prisma.user.findFirst({
       where: {
         email
@@ -46,7 +46,7 @@ export class UserRepository {
     });
   }
 
-  async updateAsync(id: number, dto: UserDto): Promise<User> {
+  public async update(id: number, dto: UserDto): Promise<User> {
     return await this.prisma.user.update({
       where: {
         id
@@ -55,7 +55,7 @@ export class UserRepository {
     });
   }
 
-  async findFilteredAsync(
+  public async findPaginated(
     filter: PaginationFilter,
     _user?: UserDto
   ): Promise<Paginated<User>> {
@@ -78,6 +78,17 @@ export class UserRepository {
         AND: {
           OR
         }
+      }
+    });
+  }
+
+  public async delete(id: number): Promise<void> {
+    await this.prisma.user.update({
+      where: {
+        id
+      },
+      data: {
+        deletedAt: new Date()
       }
     });
   }

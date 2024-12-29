@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Param, ParseIntPipe, Body, Patch } from '@nestjs/common';
+import { Controller, Get, Query, Param, ParseIntPipe, Body, Patch, Delete } from '@nestjs/common';
 import { AuthenticatedUser } from 'src/decorators/authenticated-user.decorator';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { PaginationFilter } from 'src/filters/pagination.filter';
@@ -25,27 +25,33 @@ export class UserController {
   @ApiBearerAuth()
   @ApiOkResponse({ type: [UserDto] })
   @Roles(Role.ADMIN)
-  protected async getFilteredAsync(
+  protected async getFiltered(
     @AuthenticatedUser() user: UserDto,
     @Query() filter: PaginationFilter
   ): Promise<any> {
-    return this.userService.findFilteredAsync(filter, user);
+    return this.userService.findPaginated(filter, user);
   }
 
   @Get('/:id')
   @ApiOkResponse({ type: UserDto })
   @Roles(Role.ADMIN)
-  protected async findByIdAsync(@Param('id', ParseIntPipe) id: number): Promise<User> {
+  protected async findById(@Param('id', ParseIntPipe) id: number): Promise<User> {
     return this.userService.findById(id);
   }
 
   @Patch('/:id')
   @Roles(Role.ADMIN)
   @ApiOkResponse({ type: UserDto })
-  protected async updateAsync(
+  protected async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: UserDto
   ): Promise<User> {
-    return this.userService.updateAsync(id, dto);
+    return this.userService.update(id, dto);
+  }
+
+  @Delete('/:id')
+  @Roles(Role.ADMIN)
+  protected async delete(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    return this.userService.delete(id);
   }
 }
