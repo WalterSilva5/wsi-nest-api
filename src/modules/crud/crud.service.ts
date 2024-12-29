@@ -11,30 +11,30 @@ export abstract class CrudService<Dto = any, Entity = any>
 {
   constructor(protected repository: ICrudRepository) {}
 
-  async createAsync(dto: Dto, user: UserDto): Promise<Entity> {
-    return await this.repository.createAsync(dto, user);
+  async create(dto: Dto, user: UserDto): Promise<Entity> {
+    return await this.repository.create(dto, user);
   }
 
-  async updateAsync(id: number, dto: Dto, user?: UserDto): Promise<Entity> {
-    await this.findByIdAsync(id, user);
-    return await this.repository.updateAsync(id, dto, user);
+  async update(id: number, dto: Dto, user?: UserDto): Promise<Entity> {
+    await this.findById(id, user);
+    return await this.repository.update(id, dto, user);
   }
 
-  async deleteAsync(id: number, user?: UserDto): Promise<void> {
-    await this.findByIdAsync(id, user);
-    await this.repository.deleteAsync(id, user);
+  async delete(id: number, user?: UserDto): Promise<void> {
+    await this.findById(id, user);
+    await this.repository.delete(id, user);
   }
 
-  async findByIdAsync(id: number, user?: UserDto): Promise<Entity> {
-    const item = await this.repository.findByIdAsync(id, user);
+  async findById(id: number, user?: UserDto): Promise<Entity> {
+    const item = await this.repository.findById(id, user);
     if (!item) throw new NotFoundException('Objeto não encontrado');
     return item;
   }
 
-  async findFilteredAsync(
+  async findFiltered(
     filter: PaginationFilter,
     user?: UserDto
   ): Promise<Paginated<Entity>> {
-    return await this.repository.findFilteredAsync(filter, user);
+    return await this.repository.findFiltered(filter, user);
   }
 }

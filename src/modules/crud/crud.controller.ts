@@ -22,45 +22,45 @@ export class CrudController<Dto = any> {
   constructor(protected service: ICrudService<Dto>) {}
 
   @Get()
-  protected async getFilteredAsync(
+  protected async getFiltered(
     @AuthenticatedUser() user: UserDto,
     @Query() filter: PaginationFilter
   ): Promise<Paginated<Dto>> {
-    return this.service.findFilteredAsync(filter, user);
+    return this.service.findFiltered(filter, user);
   }
 
   @Get('/:id')
-  protected async findByIdAsync(
+  protected async findById(
     @AuthenticatedUser() user: UserDto,
     @Param('id', ParseIntPipe) id: number
   ): Promise<any> {
-    return this.service.findByIdAsync(id, user);
+    return this.service.findById(id, user);
   }
 
   @Post()
-  protected async createAsync(
+  protected async create(
     @AuthenticatedUser() user: UserDto,
     @Body() dto: Dto
   ): Promise<any> {
-    return this.service.createAsync(dto, user);
+    return this.service.create(dto, user);
   }
 
   @Put('/:id')
-  protected async updateAsync(
+  protected async update(
     @AuthenticatedUser() user: UserDto,
     @Param('id', ParseIntPipe) id: number,
     @Body() dto: Dto
   ): Promise<any> {
-    return this.service.updateAsync(id, dto, user);
+    return this.service.update(id, dto, user);
   }
 
   @Delete('/:id')
-  protected async deleteAsync(
+  protected async delete(
     @Res({ passthrough: true }) response: Response,
     @AuthenticatedUser() user: UserDto,
     @Param('id', ParseIntPipe) id: number
   ): Promise<void> {
     response.status(204);
-    return this.service.deleteAsync(id, user);
+    return this.service.delete(id, user);
   }
 }

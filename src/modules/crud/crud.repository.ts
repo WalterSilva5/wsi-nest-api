@@ -8,14 +8,14 @@ import { UserDto } from '../user/dto/user.dto';
 export abstract class CrudRepository<Dto = any, Entity = any>
   implements ICrudRepository<Dto, Entity>
 {
-  async findFilteredAsync(
+  async findFiltered(
     filter: PaginationFilter,
     user?: UserDto
   ): Promise<Paginated<Entity>> {
     throw new NotImplementedException();
   }
-  abstract updateAsync(id: number, dto: Dto, user?: UserDto): Promise<Entity>;
-  abstract findByIdAsync(id: number, user?: UserDto): Promise<Entity>;
-  abstract deleteAsync(id: number, user?: UserDto): Promise<void>;
-  abstract createAsync(dto: any, user?: UserDto): Promise<Entity>;
+  abstract update(id: number, dto: Dto, user?: UserDto): Promise<Entity>;
+  abstract findById(id: number, user?: UserDto): Promise<Entity>;
+  abstract delete(id: number, user?: UserDto): Promise<void>;
+  abstract create(dto: any, user?: UserDto): Promise<Entity>;
 }
