@@ -2,7 +2,6 @@ import { ClassSerializerInterceptor, Logger } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from 'src/app.module';
-import * as express from 'express';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -19,7 +18,6 @@ async function bootstrap() {
     preflightContinue: false
   });
 
-  app.use('/api/swagger/wss', express.static('./dist/src/modules/gateway/doc/output'));
 
   const config = new DocumentBuilder()
     .setVersion(process.env.PACKAGE_VERSION || '1.0')
@@ -27,7 +25,7 @@ async function bootstrap() {
     .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/swagger/rest', app, document);
+  SwaggerModule.setup('api/docs', app, document);
 
   const PORT = process.env.PORT || 5000;
   await app.listen(PORT, () => {
