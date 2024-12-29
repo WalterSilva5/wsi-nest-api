@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { AuthenticatedUser } from 'src/decorators/authenticated-user.decorator';
 import { CrudService as ICrudService } from 'src/interfaces/crud-service.interface';
-import { DefaultFilter } from 'src/filters/DefaultFilter';
+import { PaginationFilter } from 'src/filters/pagination.filter';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { UserDto } from '../user/dto/user.dto';
 import { Response } from 'express';
@@ -24,7 +24,7 @@ export class CrudController<Dto = any> {
   @Get()
   protected async getFilteredAsync(
     @AuthenticatedUser() user: UserDto,
-    @Query() filter: DefaultFilter
+    @Query() filter: PaginationFilter
   ): Promise<Paginated<Dto>> {
     return this.service.findFilteredAsync(filter, user);
   }

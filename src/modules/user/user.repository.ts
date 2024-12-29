@@ -2,7 +2,7 @@ import { PrismaService } from 'src/database/prisma/prisma.service';
 import { RegisterDto } from '../auth/dto/register.dto';
 import { User } from './dto/user.type';
 import { Injectable } from '@nestjs/common';
-import { DefaultFilter } from 'src/filters/DefaultFilter';
+import { PaginationFilter } from 'src/filters/pagination.filter';
 import { Paginated } from 'src/interfaces/pagintaed.interface';
 import { UserDto } from './dto/user.dto';
 import { Paginator } from 'src/utils/paginator';
@@ -56,7 +56,7 @@ export class UserRepository {
   }
 
   async findFilteredAsync(
-    filter: DefaultFilter,
+    filter: PaginationFilter,
     _user?: UserDto
   ): Promise<Paginated<User>> {
     const OR: Record<string, any>[] = [];

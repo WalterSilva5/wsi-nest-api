@@ -1,7 +1,7 @@
 import { CrudRepository as ICrudRepository } from 'src/interfaces/crud-repository.interface';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CrudService as ICrudService } from 'src/interfaces/crud-service.interface';
-import { DefaultFilter } from 'src/filters/DefaultFilter';
+import { PaginationFilter } from 'src/filters/pagination.filter';
 import { UserDto } from 'src/modules/user/dto/user.dto';
 import { Paginated } from 'src/interfaces/pagintaed.interface';
 
@@ -32,7 +32,7 @@ export abstract class CrudService<Dto = any, Entity = any>
   }
 
   async findFilteredAsync(
-    filter: DefaultFilter,
+    filter: PaginationFilter,
     user?: UserDto
   ): Promise<Paginated<Entity>> {
     return await this.repository.findFilteredAsync(filter, user);

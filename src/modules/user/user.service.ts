@@ -4,7 +4,7 @@ import { RegisterDto } from 'src/modules/auth/dto/register.dto';
 import { UserRepository } from './user.repository';
 import { User } from './dto/user.type';
 import * as bcrypt from 'bcrypt';
-import { DefaultFilter } from 'src/filters/DefaultFilter';
+import { PaginationFilter } from 'src/filters/pagination.filter';
 import { Paginated } from 'src/interfaces/pagintaed.interface';
 import { UserDto } from './dto/user.dto';
 
@@ -66,7 +66,7 @@ export class UserService {
   }
 
   async findFilteredAsync(
-    filter: DefaultFilter,
+    filter: PaginationFilter,
     user?: UserDto
   ): Promise<Paginated<User>> {
     return await this.userRepository.findFilteredAsync(filter, user);

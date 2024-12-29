@@ -1,7 +1,7 @@
 import { Controller, Get, Query, Param, ParseIntPipe, Body, Patch } from '@nestjs/common';
 import { AuthenticatedUser } from 'src/decorators/authenticated-user.decorator';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { DefaultFilter } from 'src/filters/DefaultFilter';
+import { PaginationFilter } from 'src/filters/pagination.filter';
 import { Roles } from 'src/decorators/role.decorator';
 import { User } from './dto/user.type';
 import { UserService } from './user.service';
@@ -27,7 +27,7 @@ export class UserController {
   @Roles(Role.ADMIN)
   protected async getFilteredAsync(
     @AuthenticatedUser() user: UserDto,
-    @Query() filter: DefaultFilter
+    @Query() filter: PaginationFilter
   ): Promise<any> {
     return this.userService.findFilteredAsync(filter, user);
   }

@@ -8,7 +8,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from 'src/decorators/is-public.decorator';
 import { ROLES_KEY } from 'src/decorators/role.decorator';
-import { IAuthRequest } from 'src/interfaces/auth-request.interface';
+import { AuthRequestDTO } from 'src/modules/auth/dto/auth-request.dto';
 import { UserActivityRegistry } from 'src/modules/user/user.registry';
 @Injectable()
 export class AtGuard extends AuthGuard('jwt') {
@@ -51,10 +51,10 @@ export class AtGuard extends AuthGuard('jwt') {
 
   validateRoles(context: ExecutionContext): boolean {
     const roles = this.getReflector<string[]>(ROLES_KEY, context);
-    const user = context.switchToHttp().getRequest<IAuthRequest>().user;
+    const user = context.switchToHttp().getRequest<AuthRequestDTO>().user;
 
-    if (!roles) return true; // Nenhuma permissão necessária
-    if (!user) return false; // Usuário não encontrado
+    if (!roles) return true; // no roles required
+    if (!user) return false; // user not required
 
     this.userActivityRegistry.registerActivity(`${user.id}`);
 
@@ -63,9 +63,9 @@ export class AtGuard extends AuthGuard('jwt') {
     }
 
     this._logger.error(`
-      \rAcesso negado para: ${user.email}
-      \rPermissões necessárias: [${roles.join(', ')}]
-      \rPermissões atuais: [${user.role}]
+      \rAccess denied for: ${user.email}
+      \rRequired permissions: [${roles.join(', ')}]
+      \rCurrent permissions: [${user.role}]
     `);
 
     return false;

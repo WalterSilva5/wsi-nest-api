@@ -1,10 +1,10 @@
-import { DefaultFilter } from 'src/filters/DefaultFilter';
+import { PaginationFilter } from 'src/filters/pagination.filter';
 import * as DataObjectParser from 'dataobject-parser';
 import { createPaginator } from 'prisma-pagination';
 import { BadRequestException } from '@nestjs/common';
 
 export class Paginator {
-  static async applyPagination<T>(entity: T, filter: DefaultFilter): Promise<any> {
+  static async applyPagination<T>(entity: T, filter: PaginationFilter): Promise<any> {
     const paginate = createPaginator({
       perPage: filter.perPage
     });
