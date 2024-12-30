@@ -2,7 +2,7 @@
 import { CrudRepository as ICrudRepository } from 'src/interfaces/crud-repository.interface';
 import { PaginationFilter } from 'src/filters/pagination.filter';
 import { NotImplementedException } from '@nestjs/common';
-import { Paginated } from 'src/interfaces/pagintaed.interface';
+import { Paginated } from 'src/interfaces/paginated.interface';
 import { UserDto } from '../user/dto/user.dto';
 
 export abstract class CrudRepository<Dto = any, Entity = any>

@@ -1,6 +1,6 @@
 import { PaginationFilter } from 'src/filters/pagination.filter';
 import { UserDto } from 'src/cruds/user/dto/user.dto';
-import { Paginated } from './pagintaed.interface';
+import { Paginated } from './paginated.interface';
 
 export interface CrudRepository<Dto = any, Entity = any> {
   findFiltered(filter: PaginationFilter, user?: UserDto): Promise<Paginated<Entity>>;

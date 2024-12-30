@@ -3,7 +3,7 @@ import { RegisterDto } from '../auth/dto/register.dto';
 import { User } from './dto/user.type';
 import { Injectable } from '@nestjs/common';
 import { PaginationFilter } from 'src/filters/pagination.filter';
-import { Paginated } from 'src/interfaces/pagintaed.interface';
+import { Paginated } from 'src/interfaces/paginated.interface';
 import { UserDto } from './dto/user.dto';
 import { Paginator } from 'src/utils/paginator';
 

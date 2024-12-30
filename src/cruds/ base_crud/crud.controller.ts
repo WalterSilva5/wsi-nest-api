@@ -15,7 +15,7 @@ import { PaginationFilter } from 'src/filters/pagination.filter';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { UserDto } from '../user/dto/user.dto';
 import { Response } from 'express';
-import { Paginated } from 'src/interfaces/pagintaed.interface';
+import { Paginated } from 'src/interfaces/paginated.interface';
 
 @ApiBearerAuth()
 export class CrudController<Dto = any> {

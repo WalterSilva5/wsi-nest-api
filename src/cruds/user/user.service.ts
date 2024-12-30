@@ -5,7 +5,7 @@ import { UserRepository } from './user.repository';
 import { User } from './dto/user.type';
 import * as bcrypt from 'bcrypt';
 import { PaginationFilter } from 'src/filters/pagination.filter';
-import { Paginated } from 'src/interfaces/pagintaed.interface';
+import { Paginated } from 'src/interfaces/paginated.interface';
 import { UserDto } from './dto/user.dto';
 
 @Injectable()
