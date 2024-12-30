@@ -32,7 +32,7 @@ export class OauthService {
     newUser.password = '';
 
     try {
-      await this.userService.createUser(newUser);
+      await this.userService.create(newUser);
       const user = await this.userService.findByEmail(userData.email);
       await this.generateTokenAndRedirect(user, res);
     } catch (error) {

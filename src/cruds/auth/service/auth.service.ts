@@ -70,7 +70,7 @@ export class AuthService {
   }
 
   async createUser(dto: RegisterDto): Promise<JWTTokenDto> {
-    const newUser = await this.userService.createUser(dto);
+    const newUser = await this.userService.create(dto);
     return await this.getTokens(newUser);
   }
 
