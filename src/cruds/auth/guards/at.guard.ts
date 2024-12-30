@@ -6,8 +6,8 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Reflector } from '@nestjs/core';
-import { IS_PUBLIC_KEY } from 'src/decorators/is-public.decorator';
-import { ROLES_KEY } from 'src/decorators/role.decorator';
+import { IS_PUBLIC_KEY } from 'src/cruds/auth/decorators/is-public.decorator';
+import { ROLES_KEY } from 'src/cruds/auth/decorators/role.decorator';
 import { AuthRequestDTO } from 'src/cruds/auth/dto/auth-request.dto';
 import { UserActivityRegistry } from 'src/cruds/user/user.registry';
 @Injectable()

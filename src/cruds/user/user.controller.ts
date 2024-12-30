@@ -1,8 +1,8 @@
 import { Controller, Get, Query, Param, ParseIntPipe, Body, Patch, Delete } from '@nestjs/common';
-import { AuthenticatedUser } from 'src/decorators/authenticated-user.decorator';
+import { AuthenticatedUser } from 'src/cruds/auth/decorators/authenticated-user.decorator';
 import { ApiBearerAuth, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { PaginationFilter } from 'src/filters/pagination.filter';
-import { Roles } from 'src/decorators/role.decorator';
+import { Roles } from 'src/cruds/auth/decorators/role.decorator';
 import { User } from './dto/user.type';
 import { UserService } from './user.service';
 import { Role } from '@prisma/client';

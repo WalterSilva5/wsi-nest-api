@@ -9,7 +9,7 @@ import {
   Query,
   Res
 } from '@nestjs/common';
-import { AuthenticatedUser } from 'src/decorators/authenticated-user.decorator';
+import { AuthenticatedUser } from 'src/cruds/auth/decorators/authenticated-user.decorator';
 import { CrudService as ICrudService } from 'src/interfaces/crud-service.interface';
 import { PaginationFilter } from 'src/filters/pagination.filter';
 import { ApiBearerAuth } from '@nestjs/swagger';

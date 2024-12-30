@@ -7,8 +7,8 @@ import {
   ApiBody,
   ApiTags
 } from '@nestjs/swagger';
-import { AuthenticatedUser } from 'src/decorators/authenticated-user.decorator';
-import { IsPublic } from 'src/decorators/is-public.decorator';
+import { AuthenticatedUser } from 'src/cruds/auth/decorators/authenticated-user.decorator';
+import { IsPublic } from 'src/cruds/auth/decorators/is-public.decorator';
 import { User } from 'src/cruds/user/dto/user.type';
 import { AuthService } from '../service/auth.service';
 import { JWTTokenDto } from '../dto/token.dto';
