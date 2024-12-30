@@ -1,4 +1,8 @@
-import { UnauthorizedException, BadRequestException, Injectable } from '@nestjs/common';
+import {
+  UnauthorizedException,
+  BadRequestException,
+  Injectable,
+} from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma/prisma.service';
 import { UserService } from 'src/cruds/user/user.service';
 import { User } from 'src/cruds/user/dto/user.type';
@@ -13,7 +17,7 @@ export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
-    private readonly prisma: PrismaService
+    private readonly prisma: PrismaService,
   ) {}
 
   async validateUser(email: string, password: string) {
@@ -33,22 +37,29 @@ export class AuthService {
   async validateSession(
     user: User,
     token: string,
-    tokenType: 'refresh' | 'access'
+    tokenType: 'refresh' | 'access',
   ): Promise<void> {
     try {
       await this.jwtService.verify(token, {
-        secret: tokenType === 'refresh' ? process.env.RT_SECRET : process.env.AT_SECRET,
-        ignoreExpiration: false
+        secret:
+          tokenType === 'refresh'
+            ? process.env.RT_SECRET
+            : process.env.AT_SECRET,
+        ignoreExpiration: false,
       });
     } catch (_: any) {
       throw new UnauthorizedException('Sessão expirada');
     }
 
-    const userInDb = await this.userService.findById(user.id, { sessionToken: true });
+    const userInDb = await this.userService.findById(user.id, {
+      sessionToken: true,
+    });
 
     if (process.env.PERMIT_DOUBLE_SESSION === 'false') {
       if (user.sessionToken !== userInDb.sessionToken) {
-        throw new UnauthorizedException('Já existe uma sessão ativa para esta conta');
+        throw new UnauthorizedException(
+          'Já existe uma sessão ativa para esta conta',
+        );
       }
     }
   }
@@ -61,11 +72,11 @@ export class AuthService {
   async logout(user: User): Promise<void> {
     await this.prisma.user.update({
       where: {
-        id: user.id
+        id: user.id,
       },
       data: {
-        sessionToken: null
-      }
+        sessionToken: null,
+      },
     });
   }
 
@@ -75,7 +86,9 @@ export class AuthService {
   }
 
   async refreshTokens(user: User) {
-    const userInDb = await this.userService.findById(user.id, { sessionToken: true });
+    const userInDb = await this.userService.findById(user.id, {
+      sessionToken: true,
+    });
 
     if (!userInDb || !userInDb.sessionToken) {
       throw new UnauthorizedException('Sessão expirada');
@@ -87,11 +100,11 @@ export class AuthService {
   async updateSessionToken(user: User, sessionToken: string) {
     await this.prisma.user.update({
       where: {
-        id: user.id
+        id: user.id,
       },
       data: {
-        sessionToken
-      }
+        sessionToken,
+      },
     });
   }
 
@@ -105,18 +118,18 @@ export class AuthService {
     const payload = {
       sub: user.id,
       ...user,
-      sessionToken
+      sessionToken,
     };
 
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.sign(payload, {
         secret: process.env.AT_SECRET,
-        expiresIn: process.env.JWT_ACCESS_LIFETIME
+        expiresIn: process.env.JWT_ACCESS_LIFETIME,
       }),
       this.jwtService.sign(payload, {
         secret: process.env.RT_SECRET,
-        expiresIn: process.env.JWT_REFRESH_LIFETIME
-      })
+        expiresIn: process.env.JWT_REFRESH_LIFETIME,
+      }),
     ]);
 
     await this.updateSessionToken(user, sessionToken);
@@ -124,7 +137,7 @@ export class AuthService {
     return {
       refreshToken,
       accessToken,
-      user
+      user,
     };
   }
 }

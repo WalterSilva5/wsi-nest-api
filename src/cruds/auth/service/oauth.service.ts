@@ -2,7 +2,7 @@ import {
   BadRequestException,
   NotFoundException,
   Logger,
-  HttpStatus
+  HttpStatus,
 } from '@nestjs/common';
 import { RegisterDto } from 'src/cruds/auth/dto/register.dto';
 import { UserService } from 'src/cruds/user/user.service';
@@ -17,12 +17,12 @@ export class OauthService {
   private readonly logger = new Logger(OauthService.name);
   constructor(
     private readonly userService: UserService,
-    private readonly authService: AuthService
+    private readonly authService: AuthService,
   ) {}
 
   private async registerUserAndReturnToken(
     userData: RegisterDto,
-    @Res() res: Response
+    @Res() res: Response,
   ): Promise<void> {
     const newUser = new RegisterDto();
 
@@ -41,7 +41,10 @@ export class OauthService {
     }
   }
 
-  private async generateTokenAndRedirect(user: any, @Res() res: Response): Promise<void> {
+  private async generateTokenAndRedirect(
+    user: any,
+    @Res() res: Response,
+  ): Promise<void> {
     const tokens = await this.authService.getTokens(user);
     const url = this.getRedirectUrl(tokens);
     res.redirect(HttpStatus.FOUND, url);
@@ -52,7 +55,7 @@ export class OauthService {
 
     return {
       message: 'User not found',
-      user: req.user
+      user: req.user,
     };
   }
 
@@ -66,7 +69,10 @@ export class OauthService {
     );
   }
 
-  public async processOuthRedirect(@Request() req: Request, @Res() res: Response) {
+  public async processOuthRedirect(
+    @Request() req: Request,
+    @Res() res: Response,
+  ) {
     const { user }: any = await this.googleLogin(req);
     try {
       const userDb = await this.userService.findByEmail(user.email);

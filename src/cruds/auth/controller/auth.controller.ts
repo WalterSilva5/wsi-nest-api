@@ -1,11 +1,18 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Controller, Get, HttpStatus, Post, Res, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpStatus,
+  Post,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import {
   ApiNoContentResponse,
   ApiBearerAuth,
   ApiOkResponse,
   ApiBody,
-  ApiTags
+  ApiTags,
 } from '@nestjs/swagger';
 import { AuthenticatedUser } from 'src/cruds/auth/decorators/authenticated-user.decorator';
 import { IsPublic } from 'src/cruds/auth/decorators/is-public.decorator';
@@ -27,7 +34,7 @@ import { LocalAuthGuard } from '../guards/local-auth.guard';
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
-    private readonly oauthService: OauthService
+    private readonly oauthService: OauthService,
   ) {}
 
   @Get('refresh')
@@ -44,7 +51,7 @@ export class AuthController {
   @ApiBody({ type: LoginDto })
   async login(
     @AuthenticatedUser() user: User,
-    @Res({ passthrough: true }) response: Response
+    @Res({ passthrough: true }) response: Response,
   ) {
     response.status(HttpStatus.OK);
     return this.authService.login(user);
@@ -56,7 +63,7 @@ export class AuthController {
   @ApiBearerAuth()
   async logout(
     @AuthenticatedUser() user: User,
-    @Res({ passthrough: true }) response: Response
+    @Res({ passthrough: true }) response: Response,
   ) {
     response.status(HttpStatus.OK);
     await this.authService.logout(user);

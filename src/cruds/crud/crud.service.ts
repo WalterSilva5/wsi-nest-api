@@ -33,7 +33,7 @@ export abstract class CrudService<Dto = any, Entity = any>
 
   async findPaginated(
     filter: PaginationFilter,
-    user?: UserDto
+    user?: UserDto,
   ): Promise<Paginated<Entity>> {
     return await this.repository.findPaginated(filter, user);
   }

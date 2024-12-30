@@ -12,7 +12,12 @@ import { JwtModule } from '@nestjs/jwt';
 import { UserActivityRegistry } from 'src/cruds/user/user.registry';
 
 @Module({
-  imports: [UserModule, UserActivityRegistry, PrismaModule, JwtModule.register({})],
+  imports: [
+    UserModule,
+    UserActivityRegistry,
+    PrismaModule,
+    JwtModule.register({}),
+  ],
   controllers: [AuthController],
   providers: [
     AuthService,
@@ -20,7 +25,7 @@ import { UserActivityRegistry } from 'src/cruds/user/user.registry';
     AtStrategy,
     RtStrategy,
     OauthService,
-    GoogleStrategy
-  ]
+    GoogleStrategy,
+  ],
 })
 export class AuthModule {}

@@ -14,8 +14,8 @@ export class UserRepository {
   public async getMe(idUser: number): Promise<User> {
     return await this.prisma.user.findFirst({
       where: {
-        id: idUser
-      }
+        id: idUser,
+      },
     });
   }
 
@@ -25,39 +25,39 @@ export class UserRepository {
         firstName: dto.firstName,
         lastName: dto.lastName,
         password: dto.password,
-        email: dto.email
-      }
+        email: dto.email,
+      },
     });
   }
 
   public async findById(id: number): Promise<User> {
     return await this.prisma.user.findFirst({
       where: {
-        id
-      }
+        id,
+      },
     });
   }
 
   public async findByEmail(email: string): Promise<User> {
     return await this.prisma.user.findFirst({
       where: {
-        email
-      }
+        email,
+      },
     });
   }
 
   public async update(id: number, dto: UserDto): Promise<User> {
     return await this.prisma.user.update({
       where: {
-        id
+        id,
       },
-      data: dto
+      data: dto,
     });
   }
 
   public async findPaginated(
     filter: PaginationFilter,
-    _user?: UserDto
+    _user?: UserDto,
   ): Promise<Paginated<User>> {
     const OR: Record<string, any>[] = [];
 
@@ -65,8 +65,8 @@ export class UserRepository {
       ['firstName', 'lastName', 'email'].map((field) => {
         OR.push({
           [field]: {
-            contains: filter.search
-          }
+            contains: filter.search,
+          },
         });
       });
     }
@@ -76,20 +76,20 @@ export class UserRepository {
       where: {
         deletedAt: null,
         AND: {
-          OR
-        }
-      }
+          OR,
+        },
+      },
     });
   }
 
   public async delete(id: number): Promise<void> {
     await this.prisma.user.update({
       where: {
-        id
+        id,
       },
       data: {
-        deletedAt: new Date()
-      }
+        deletedAt: new Date(),
+      },
     });
   }
 }

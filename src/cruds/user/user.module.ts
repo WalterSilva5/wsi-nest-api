@@ -11,6 +11,6 @@ import { UserActivityRegistry } from './user.registry';
   controllers: [UserController],
   providers: [UserService, UserRepository, UserActivityRegistry],
   imports: [PrismaModule, JwtModule],
-  exports: [UserService, UserActivityRegistry]
+  exports: [UserService, UserActivityRegistry],
 })
 export class UserModule {}

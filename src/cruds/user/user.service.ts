@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { ISensitiveData } from 'src/interfaces/sensitive-date.interface';
 import { RegisterDto } from 'src/cruds/auth/dto/register.dto';
 import { UserRepository } from './user.repository';
@@ -12,7 +16,10 @@ import { UserDto } from './dto/user.dto';
 export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
-  private excludeUserFields<User, Key extends keyof User>(user: User, keys: Key[]): User {
+  private excludeUserFields<User, Key extends keyof User>(
+    user: User,
+    keys: Key[],
+  ): User {
     for (const key of keys) {
       delete user[key];
     }
@@ -23,7 +30,10 @@ export class UserService {
     return await this.findById(dto.id);
   }
 
-  public async findByEmail(email: string, returningOptions?: ISensitiveData): Promise<User> {
+  public async findByEmail(
+    email: string,
+    returningOptions?: ISensitiveData,
+  ): Promise<User> {
     const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
@@ -38,7 +48,10 @@ export class UserService {
     return this.excludeUserFields(user, fieldsToExclude);
   }
 
-  public async findById(idUser: number, returningOptions?: ISensitiveData): Promise<User> {
+  public async findById(
+    idUser: number,
+    returningOptions?: ISensitiveData,
+  ): Promise<User> {
     const user = await this.userRepository.findById(idUser);
 
     if (!user) {
@@ -54,7 +67,9 @@ export class UserService {
   }
 
   public async create(dto: RegisterDto): Promise<User> {
-    const userAlreadyRegistred = await this.userRepository.findByEmail(dto.email);
+    const userAlreadyRegistred = await this.userRepository.findByEmail(
+      dto.email,
+    );
 
     if (userAlreadyRegistred) {
       throw new BadRequestException('User already registred');
@@ -67,7 +82,7 @@ export class UserService {
 
   public async findPaginated(
     filter: PaginationFilter,
-    user?: UserDto
+    user?: UserDto,
   ): Promise<Paginated<User>> {
     return await this.userRepository.findPaginated(filter, user);
   }

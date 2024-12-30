@@ -9,7 +9,7 @@ export class AppException extends BadRequestException {
       error: 'Bad Request',
       ...(typeof details === 'object' && !Array.isArray(details)
         ? details
-        : { message: details })
+        : { message: details }),
     });
   }
 }

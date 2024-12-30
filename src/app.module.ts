@@ -1,4 +1,9 @@
-import { MiddlewareConsumer, Module, NestModule, ValidationPipe } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  ValidationPipe,
+} from '@nestjs/common';
 import { HTTPLoggerMiddleware } from './middleware/logger.middleware';
 import { AllExceptionsFilter } from './exceptions/exception.filter';
 import { APP_GUARD, APP_FILTER, APP_PIPE } from '@nestjs/core';
@@ -13,11 +18,11 @@ import { AppController } from './app.controller';
   providers: [
     {
       provide: APP_GUARD,
-      useClass: AtGuard
+      useClass: AtGuard,
     },
     {
       provide: APP_FILTER,
-      useClass: AllExceptionsFilter
+      useClass: AllExceptionsFilter,
     },
     {
       provide: APP_PIPE,
@@ -29,25 +34,21 @@ import { AppController } from './app.controller';
           const formattedErrors = errors.map((error) => ({
             field: error.property,
             value: error.value,
-            issues: Object.values(error.constraints || {})
+            issues: Object.values(error.constraints || {}),
           }));
 
           console.error('Validation errors:', formattedErrors);
 
           return new AppException({
             message: 'Validation failed',
-            errors: formattedErrors
+            errors: formattedErrors,
           });
-        }
-      })
-    }
+        },
+      }),
+    },
   ],
-  imports: [
-    UserModule,
-    PrismaModule,
-    AuthModule,
-  ],
-  controllers: [AppController]
+  imports: [UserModule, PrismaModule, AuthModule],
+  controllers: [AppController],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

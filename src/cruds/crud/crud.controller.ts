@@ -7,7 +7,7 @@ import {
   Post,
   Put,
   Query,
-  Res
+  Res,
 } from '@nestjs/common';
 import { AuthenticatedUser } from 'src/cruds/auth/decorators/authenticated-user.decorator';
 import { CrudService as ICrudService } from 'src/interfaces/crud-service.interface';
@@ -24,7 +24,7 @@ export class CrudController<Dto = any> {
   @Get()
   protected async getFiltered(
     @AuthenticatedUser() user: UserDto,
-    @Query() filter: PaginationFilter
+    @Query() filter: PaginationFilter,
   ): Promise<Paginated<Dto>> {
     return this.service.findPaginated(filter, user);
   }
@@ -32,7 +32,7 @@ export class CrudController<Dto = any> {
   @Get('/:id')
   protected async findById(
     @AuthenticatedUser() user: UserDto,
-    @Param('id', ParseIntPipe) id: number
+    @Param('id', ParseIntPipe) id: number,
   ): Promise<any> {
     return this.service.findById(id, user);
   }
@@ -40,7 +40,7 @@ export class CrudController<Dto = any> {
   @Post()
   protected async create(
     @AuthenticatedUser() user: UserDto,
-    @Body() dto: Dto
+    @Body() dto: Dto,
   ): Promise<any> {
     return this.service.create(dto, user);
   }
@@ -49,7 +49,7 @@ export class CrudController<Dto = any> {
   protected async update(
     @AuthenticatedUser() user: UserDto,
     @Param('id', ParseIntPipe) id: number,
-    @Body() dto: Dto
+    @Body() dto: Dto,
   ): Promise<any> {
     return this.service.update(id, dto, user);
   }
@@ -58,7 +58,7 @@ export class CrudController<Dto = any> {
   protected async delete(
     @Res({ passthrough: true }) response: Response,
     @AuthenticatedUser() user: UserDto,
-    @Param('id', ParseIntPipe) id: number
+    @Param('id', ParseIntPipe) id: number,
   ): Promise<void> {
     response.status(204);
     return this.service.delete(id, user);

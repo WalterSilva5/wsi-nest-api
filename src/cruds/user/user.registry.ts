@@ -12,7 +12,10 @@ export class UserActivityRegistry {
   pruneInactiveUsers(): void {
     const now = new Date();
     for (const [userId, lastActivity] of this.userLastActivity.entries()) {
-      if ((now.getTime() - lastActivity.getTime()) / (1000 * 60) > this.activityTimeout) {
+      if (
+        (now.getTime() - lastActivity.getTime()) / (1000 * 60) >
+        this.activityTimeout
+      ) {
         this.userLastActivity.delete(userId);
       }
     }

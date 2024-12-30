@@ -10,7 +10,7 @@ export abstract class CrudRepository<Dto = any, Entity = any>
 {
   async findPaginated(
     filter: PaginationFilter,
-    user?: UserDto
+    user?: UserDto,
   ): Promise<Paginated<Entity>> {
     throw new NotImplementedException();
   }

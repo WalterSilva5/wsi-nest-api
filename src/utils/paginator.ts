@@ -4,9 +4,12 @@ import { createPaginator } from 'prisma-pagination';
 import { BadRequestException } from '@nestjs/common';
 
 export class Paginator {
-  static async applyPagination<T>(entity: T, filter: PaginationFilter): Promise<any> {
+  static async applyPagination<T>(
+    entity: T,
+    filter: PaginationFilter,
+  ): Promise<any> {
     const paginate = createPaginator({
-      perPage: filter.perPage
+      perPage: filter.perPage,
     });
 
     if (filter.orderBy && filter.orderByDirection) {
@@ -20,11 +23,11 @@ export class Paginator {
         entity,
         {
           where: filter.where,
-          orderBy: filter.orderBy
+          orderBy: filter.orderBy,
         },
         {
-          page: filter.page
-        }
+          page: filter.page,
+        },
       );
     } catch (error) {
       console.log('Erro pagination ', error);

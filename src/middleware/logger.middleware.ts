@@ -23,7 +23,7 @@ export class HTTPLoggerMiddleware implements NestMiddleware {
       this.parseArgs(start, end, {
         method: method,
         endpoint: baseUrl,
-        status: statusCode
+        status: statusCode,
       });
     });
 

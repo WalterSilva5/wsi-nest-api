@@ -10,14 +10,14 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       clientID: config.google.clientID,
       clientSecret: config.google.clientSecret,
       callbackURL: config.google.callbackURL,
-      scope: ['email', 'profile']
+      scope: ['email', 'profile'],
     });
   }
   async validate(
     accessToken: string,
     refreshToken: string,
     profile: any,
-    done: VerifyCallback
+    done: VerifyCallback,
   ): Promise<any> {
     const { name, emails } = profile;
     const user = {
@@ -25,7 +25,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       firstName: name.givenName,
       lastName: name.familyName,
       accessToken,
-      refreshToken
+      refreshToken,
     };
     done(null, user);
   }

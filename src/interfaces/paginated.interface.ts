@@ -5,7 +5,7 @@ import {
   ApiExtraModels,
   ApiOkResponse,
   getSchemaPath,
-  ApiProperty
+  ApiProperty,
 } from '@nestjs/swagger';
 
 class Meta {
@@ -42,7 +42,9 @@ export class Paginated<T> {
   meta: Meta;
 }
 
-export const ApiOkResponsePaginated = <DataDto extends Type<unknown>>(dataDto: DataDto) =>
+export const ApiOkResponsePaginated = <DataDto extends Type<unknown>>(
+  dataDto: DataDto,
+) =>
   applyDecorators(
     ApiExtraModels(Paginated, dataDto),
     ApiOkResponse({
@@ -53,11 +55,11 @@ export const ApiOkResponsePaginated = <DataDto extends Type<unknown>>(dataDto: D
             properties: {
               data: {
                 type: 'array',
-                items: { $ref: getSchemaPath(dataDto) }
-              }
-            }
-          }
-        ]
-      }
-    })
+                items: { $ref: getSchemaPath(dataDto) },
+              },
+            },
+          },
+        ],
+      },
+    }),
   );

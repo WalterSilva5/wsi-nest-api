@@ -3,7 +3,7 @@ import {
   ArgumentsHost,
   HttpException,
   HttpStatus,
-  Catch
+  Catch,
 } from '@nestjs/common';
 import { HttpAdapterHost } from '@nestjs/core';
 
@@ -16,7 +16,10 @@ class AllExceptionsFilter implements ExceptionFilter {
 
     errors.forEach((error) => {
       if (error.children) {
-        messages = [...messages, ...this.extractChildrenMessages(error.children)];
+        messages = [
+          ...messages,
+          ...this.extractChildrenMessages(error.children),
+        ];
       }
       if (error.constraints) {
         messages.push(...(Object.values(error.constraints) as string[]));
@@ -30,13 +33,16 @@ class AllExceptionsFilter implements ExceptionFilter {
     let messages: string[] = [];
 
     const errorMessages = exception.messages || [exception.message] || [
-        'Unknown server error'
+        'Unknown server error',
       ];
     errorMessages.forEach((message: Record<string, any>) => {
       if (message.constraints) {
         messages.push(...(Object.values(message.constraints) as string[]));
       } else if (message.children) {
-        messages = [...messages, ...this.extractChildrenMessages(message.children)];
+        messages = [
+          ...messages,
+          ...this.extractChildrenMessages(message.children),
+        ];
       } else if (typeof message === 'string') {
         messages.push(message);
       }
@@ -64,20 +70,20 @@ class AllExceptionsFilter implements ExceptionFilter {
           ? {
               ...exceptionResponse,
               timestamp: new Date().toISOString(),
-              path: httpAdapter.getRequestUrl(ctx.getRequest())
+              path: httpAdapter.getRequestUrl(ctx.getRequest()),
             }
           : {
               statusCode: httpStatus,
               message: exceptionResponse,
               timestamp: new Date().toISOString(),
-              path: httpAdapter.getRequestUrl(ctx.getRequest())
+              path: httpAdapter.getRequestUrl(ctx.getRequest()),
             };
     } else {
       responseBody = {
         statusCode: httpStatus,
         message: exception.message || 'Internal server error',
         timestamp: new Date().toISOString(),
-        path: httpAdapter.getRequestUrl(ctx.getRequest())
+        path: httpAdapter.getRequestUrl(ctx.getRequest()),
       };
     }
 

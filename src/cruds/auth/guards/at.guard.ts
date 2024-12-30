@@ -2,7 +2,7 @@ import {
   ExecutionContext,
   Injectable,
   Logger,
-  UnauthorizedException
+  UnauthorizedException,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { Reflector } from '@nestjs/core';
@@ -15,7 +15,7 @@ export class AtGuard extends AuthGuard('jwt') {
   _logger = new Logger(AtGuard.name);
   constructor(
     private reflector: Reflector,
-    private userActivityRegistry: UserActivityRegistry
+    private userActivityRegistry: UserActivityRegistry,
   ) {
     super();
   }
@@ -45,7 +45,7 @@ export class AtGuard extends AuthGuard('jwt') {
   getReflector<T = boolean>(metadataKey: string, context: ExecutionContext) {
     return this.reflector.getAllAndOverride<T>(metadataKey, [
       context.getHandler(),
-      context.getClass()
+      context.getClass(),
     ]);
   }
 

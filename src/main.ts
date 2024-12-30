@@ -5,7 +5,7 @@ import { AppModule } from 'src/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
-    logger: ['debug', 'error', 'log', 'verbose', 'warn']
+    logger: ['debug', 'error', 'log', 'verbose', 'warn'],
   });
   app.setGlobalPrefix('api');
 
@@ -15,9 +15,8 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
     allowedHeaders: '*',
-    preflightContinue: false
+    preflightContinue: false,
   });
-
 
   const config = new DocumentBuilder()
     .setVersion(process.env.PACKAGE_VERSION || '1.0')

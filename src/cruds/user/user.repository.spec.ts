@@ -17,11 +17,11 @@ describe('UserRepository', () => {
             user: {
               findFirst: jest.fn(),
               create: jest.fn(),
-              update: jest.fn()
-            }
-          }
-        }
-      ]
+              update: jest.fn(),
+            },
+          },
+        },
+      ],
     }).compile();
 
     userRepository = module.get<UserRepository>(UserRepository);
@@ -33,7 +33,7 @@ describe('UserRepository', () => {
       firstName: 'Test',
       lastName: 'User',
       email: 'test@example.com',
-      password: '123456'
+      password: '123456',
     };
 
     prismaService.user.create = jest.fn().mockResolvedValue({ ...dto, id: 1 });

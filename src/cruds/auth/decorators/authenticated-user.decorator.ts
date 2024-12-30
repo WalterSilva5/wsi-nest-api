@@ -6,5 +6,5 @@ export const AuthenticatedUser = createParamDecorator(
   (data: unknown, context: ExecutionContext): User => {
     const request = context.switchToHttp().getRequest<AuthRequestDTO>();
     return request.user;
-  }
+  },
 );
