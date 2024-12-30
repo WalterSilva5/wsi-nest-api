@@ -7,9 +7,9 @@ import { AppException } from './exceptions/app.exception';
 import { AtGuard } from './cruds/auth/guards/at.guard';
 import { UserModule } from './cruds/user/user.module';
 import { AuthModule } from './cruds/auth/auth.module';
+import { AppController } from './app.controller';
 
 @Module({
-  controllers: [],
   providers: [
     {
       provide: APP_GUARD,
@@ -46,7 +46,8 @@ import { AuthModule } from './cruds/auth/auth.module';
     UserModule,
     PrismaModule,
     AuthModule,
-  ]
+  ],
+  controllers: [AppController]
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
