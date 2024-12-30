@@ -1,6 +1,6 @@
 import { Role } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
-export const users = await (async () => {
+export const users = (async () => {
     return [
         {
             firstName: 'wsi',
