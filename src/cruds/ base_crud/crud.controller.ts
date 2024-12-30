@@ -26,7 +26,7 @@ export class CrudController<Dto = any> {
     @AuthenticatedUser() user: UserDto,
     @Query() filter: PaginationFilter
   ): Promise<Paginated<Dto>> {
-    return this.service.findFiltered(filter, user);
+    return this.service.findPaginated(filter, user);
   }
 
   @Get('/:id')

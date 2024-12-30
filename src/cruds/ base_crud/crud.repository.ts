@@ -8,7 +8,7 @@ import { UserDto } from '../user/dto/user.dto';
 export abstract class CrudRepository<Dto = any, Entity = any>
   implements ICrudRepository<Dto, Entity>
 {
-  async findFiltered(
+  async findPaginated(
     filter: PaginationFilter,
     user?: UserDto
   ): Promise<Paginated<Entity>> {

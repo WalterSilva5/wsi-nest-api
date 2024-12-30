@@ -1,9 +1,9 @@
 import { PaginationFilter } from 'src/filters/pagination.filter';
 import { UserDto } from 'src/cruds/user/dto/user.dto';
-import { Paginated } from './paginated.interface';
+import { Paginated } from 'src/interfaces/paginated.interface';
 
 export interface CrudService<Dto = any, Entity = any> {
-  findFiltered(filter: PaginationFilter, user?: UserDto): Promise<Paginated<Entity>>;
+  findPaginated(filter: PaginationFilter, user?: UserDto): Promise<Paginated<Entity>>;
   update(id: number, dto: Dto, user?: UserDto): Promise<Entity>;
   findById(id: number, user?: UserDto): Promise<Entity>;
   delete(id: number, user?: UserDto): Promise<void>;
