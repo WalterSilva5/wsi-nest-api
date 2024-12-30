@@ -1,4 +1,4 @@
-import { RegisterDto } from 'src/modules/auth/dto/register.dto';
+import { RegisterDto } from 'src/cruds/auth/dto/register.dto';
 import { faker } from '@faker-js/faker/locale/pt_BR';
 import { PrismaClient, User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';

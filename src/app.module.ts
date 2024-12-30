@@ -4,9 +4,9 @@ import { AllExceptionsFilter } from './exceptions/exception.filter';
 import { APP_GUARD, APP_FILTER, APP_PIPE } from '@nestjs/core';
 import { PrismaModule } from './database/prisma/prisma.module';
 import { AppException } from './exceptions/app.exception';
-import { AtGuard } from './modules/auth/guards/at.guard';
-import { UserModule } from './modules/user/user.module';
-import { AuthModule } from './modules/auth/auth.module';
+import { AtGuard } from './cruds/auth/guards/at.guard';
+import { UserModule } from './cruds/user/user.module';
+import { AuthModule } from './cruds/auth/auth.module';
 
 @Module({
   controllers: [],

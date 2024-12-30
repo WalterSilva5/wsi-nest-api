@@ -2,7 +2,7 @@ import { CrudRepository as ICrudRepository } from 'src/interfaces/crud-repositor
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CrudService as ICrudService } from 'src/interfaces/crud-service.interface';
 import { PaginationFilter } from 'src/filters/pagination.filter';
-import { UserDto } from 'src/modules/user/dto/user.dto';
+import { UserDto } from 'src/cruds/user/dto/user.dto';
 import { Paginated } from 'src/interfaces/pagintaed.interface';
 
 @Injectable()

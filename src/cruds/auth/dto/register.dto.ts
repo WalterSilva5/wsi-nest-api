@@ -1,4 +1,4 @@
-import { UserDto } from 'src/modules/user/dto/user.dto';
+import { UserDto } from 'src/cruds/user/dto/user.dto';
 import { IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';

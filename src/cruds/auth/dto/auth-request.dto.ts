@@ -1,4 +1,4 @@
-import { User } from 'src/modules/user/dto/user.type';
+import { User } from 'src/cruds/user/dto/user.type';
 import { Request } from 'express';
 
 export interface AuthRequestDTO extends Request {

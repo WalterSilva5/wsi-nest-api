@@ -1,5 +1,5 @@
 import { PaginationFilter } from 'src/filters/pagination.filter';
-import { UserDto } from 'src/modules/user/dto/user.dto';
+import { UserDto } from 'src/cruds/user/dto/user.dto';
 import { Paginated } from './pagintaed.interface';
 
 export interface CrudRepository<Dto = any, Entity = any> {

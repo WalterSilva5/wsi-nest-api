@@ -8,8 +8,8 @@ import { AuthGuard } from '@nestjs/passport';
 import { Reflector } from '@nestjs/core';
 import { IS_PUBLIC_KEY } from 'src/decorators/is-public.decorator';
 import { ROLES_KEY } from 'src/decorators/role.decorator';
-import { AuthRequestDTO } from 'src/modules/auth/dto/auth-request.dto';
-import { UserActivityRegistry } from 'src/modules/user/user.registry';
+import { AuthRequestDTO } from 'src/cruds/auth/dto/auth-request.dto';
+import { UserActivityRegistry } from 'src/cruds/user/user.registry';
 @Injectable()
 export class AtGuard extends AuthGuard('jwt') {
   _logger = new Logger(AtGuard.name);

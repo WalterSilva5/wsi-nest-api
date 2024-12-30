@@ -4,8 +4,8 @@ import {
   Logger,
   HttpStatus
 } from '@nestjs/common';
-import { RegisterDto } from 'src/modules/auth/dto/register.dto';
-import { UserService } from 'src/modules/user/user.service';
+import { RegisterDto } from 'src/cruds/auth/dto/register.dto';
+import { UserService } from 'src/cruds/user/user.service';
 import { Request, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Injectable } from '@nestjs/common';
